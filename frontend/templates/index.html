@@ -1,0 +1,108 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+    <script src="{% static 'js/script.js' %}" defer></script>
+  </head>
+  <body>
+  <div class="loading-screen"></div>
+
+    <section class="hero">
+      <img
+        id="toggleTheme"
+        class="theme-btn"
+        src="/"
+      />
+      <div class="hero-pic">
+        <div class="inner-circle"></div>
+            <img src="{% static 'images/logo.jpg' %}" alt="" />
+      </div>
+      <div class="hero-info">
+          <h1>{{ heroes.0.name }}</h1>
+          <h2>{{ heroes.0.position }}</h2>
+        <div class="logo-container">
+            {% for social in social_media %}
+                <a href="{{ social.url }}" target="_blank">
+                    <img src="{{ social.img.url }}" alt="{{ social.url }}">
+                </a>
+            {% endfor %}
+        </div>
+      </div>
+    </section>
+    <section class="experience">
+        <h2><b>{{ experience.years_frontend }} +</b><br />Years<br />Frontend</h2>
+        <h2><b>{{ experience.years_backend }} +</b><br />Years<br />Backend</h2>
+        <h2><b>{{ experience.satisfied_customers }} +</b><br />Satisfied<br />Customers</h2>
+    </section>
+    <section class="cta">
+      <a href="{% static 'document/OmarBalagadashov.pdf'  %}" download>
+        <button class="btn download-btn">Download CV</button>
+      </a>
+      <a href="https://wa.me/+994774186033" target="_blank"
+        ><button class="btn contact-btn">Contact Me</button></a
+      >
+      <a href="#">
+        <button class="btn download-btn" onclick="openModal()">About Me</button>
+      </a>
+
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <p>
+              {{ about_me.content|safe }}
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="portfolio-skills">
+      <div class="btn-bg">
+        <button class="btn-2 active-btn" id="portfolio-btn">Portfolio</button>
+        <button class="btn-2" id="skills-btn">Skills</button>
+      </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+        {% for project in projects %}
+        <div class="wrapper project-wrapper">
+            <a href="{{ project.link }}">
+                <img src="{{ project.image.url }}" alt="{{ project.name }}" />
+            </a>
+        </div>
+        {% endfor %}
+    </section>
+    <section class="skills" id="skills">
+        <div class="wrapper">
+            <h3>Frontend</h3>
+            <article class="frontend-skills">
+                {% for skill in frontend_skills %}
+                <p>{{ skill.name }}</p>
+                {% endfor %}
+            </article>
+        </div>
+        <div class="wrapper">
+            <h3>Backend</h3>
+            <article class="backend-skills">
+                {% for skill in backend_skills %}
+                <p>{{ skill.name }}</p>
+                {% endfor %}
+            </article>
+        </div>
+    </section>
+  <footer>
+  <p id="copyright">&copy; Mr Omar <span id="current-year"></span></p>
+</footer>
+  </body>
+</html>
